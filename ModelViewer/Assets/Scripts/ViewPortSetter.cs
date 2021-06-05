@@ -4,17 +4,19 @@ using UnityEngine;
 using UnityEngine.Rendering;
 
 public class ViewPortSetter : MonoBehaviour
-{    
-    public Vector2 offset;
-    public Vector2 count;
-    public int _layerMask;
-    public Camera _camera;
-    public RenderTexture _texture;
-    
-    void Start()
-    {                
+{
+    private Camera _camera;
+    private static  int _layerMask = 8;
 
-        if (!_camera || !_texture || count.x < 0.1f || count.y < 0.1f)
+    //public Vector2 offset;
+    //public Vector2 count;    
+    //public RenderTexture _texture;
+    public RenderInfo _renderInfo;
+
+    private void StartInt()
+    {
+        _camera = gameObject.GetComponentInChildren<Camera>();
+        if (!_camera)// || _renderInfo == null || !_renderInfo.IsValid()
         {
             return;
         }
@@ -26,12 +28,27 @@ public class ViewPortSetter : MonoBehaviour
             child.gameObject.layer = _layerMask;
         }
 
-        _camera.targetTexture = _texture;
+        //_camera.targetTexture = _renderInfo._texture;
         _camera.cullingMask = 1 << _layerMask;
 
-        var oneOverCount = new Vector2(1.0f, 1.0f) / count;                
-        _camera.rect = new Rect(oneOverCount.x * offset.x, oneOverCount.x * offset.y, oneOverCount.x, oneOverCount.x);
+        _layerMask++;
+        if (_layerMask >= 32)
+        {
+            _layerMask = 8;
+        }
+      // var oneOverCount = new Vector2(1.0f, 1.0f) / _renderInfo._count;
+      //_camera.rect = _renderInfo._uvRect;
+      //new Rect(oneOverCount.x * _renderInfo._offset.x, oneOverCount.x * _renderInfo._offset.y, oneOverCount.x, oneOverCount.x);
     }
 
-    
+    public void Set(RenderInfo renderInfo)
+    {
+        if (!renderInfo.IsValid())
+        {
+            return;
+        }
+        StartInt();
+        _camera.rect = renderInfo._uvRect;
+        _camera.targetTexture = renderInfo._texture;
+    }
 }
