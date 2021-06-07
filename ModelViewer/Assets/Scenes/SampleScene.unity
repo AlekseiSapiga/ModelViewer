@@ -320,7 +320,8 @@ MonoBehaviour:
   _charactersCollection: {fileID: 11400000, guid: 5e9d0362efa0b4842a8f55ddab097b8c, type: 2}
   _texture: {fileID: 8400000, guid: e3abeef7febefcc4f99f8da55b87b7b9, type: 2}
   _widgetPrefab: {fileID: 3301097479274837554, guid: 23b546302e7ab2a47ae82a233c295bd4, type: 3}
-  _scroller: {fileID: 934999783}
+  _scrollerContent: {fileID: 934999783}
+  _scrollerRect: {fileID: 1538541699}
 --- !u!4 &582557593
 Transform:
   m_ObjectHideFlags: 0
@@ -473,6 +474,7 @@ GameObject:
   m_Component:
   - component: {fileID: 934999784}
   - component: {fileID: 934999785}
+  - component: {fileID: 934999786}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -494,10 +496,10 @@ RectTransform:
   m_Father: {fileID: 1324435765}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000030518, y: 55.996502}
-  m_SizeDelta: {x: 0, y: 237.7351}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &934999785
 MonoBehaviour:
@@ -521,8 +523,22 @@ MonoBehaviour:
   m_StartAxis: 0
   m_CellSize: {x: 256, y: 286}
   m_Spacing: {x: 5, y: 5}
-  m_Constraint: 0
+  m_Constraint: 1
   m_ConstraintCount: 2
+--- !u!114 &934999786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 934999783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 1
+  m_VerticalFit: 2
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -733,8 +749,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 21.9, y: -0.00022125}
-  m_SizeDelta: {x: 596.27014, y: 641.99963}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 630.99744, y: 719.9999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1538541699
 MonoBehaviour:
@@ -897,7 +913,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!64 &1757917738
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1057,7 +1073,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1586464227}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.62969595
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

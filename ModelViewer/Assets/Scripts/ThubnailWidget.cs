@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class ThubnailWidget : MonoBehaviour, IUpdateImageListener
 {
     public Text _title;
     public RawImage _image;
     private string _imageId;
+    
 
     public void SetTitle(string title)
     {
@@ -17,6 +19,7 @@ public class ThubnailWidget : MonoBehaviour, IUpdateImageListener
     public void SetImageId(string id)
     {
         _imageId = id;
+        _title.text += id;
     }
 
     public void UpdateImage()

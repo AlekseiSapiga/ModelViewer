@@ -2,52 +2,56 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
+using System;
 
 public class ViewPortSetter : MonoBehaviour
 {
     private Camera _camera;
-    private static  int _layerMask = 8;
-
-    //public Vector2 offset;
-    //public Vector2 count;    
-    //public RenderTexture _texture;
+    
+    public Light _light;
+    public Vector2Int _layerMaskRange = new Vector2Int(8, 32);
+    public int _prevLayerMask = -1;
     public RenderInfo _renderInfo;
 
-    private void StartInt()
+
+    private void SetLayerMask(int layerMask)
     {
-        _camera = gameObject.GetComponentInChildren<Camera>();
-        if (!_camera)// || _renderInfo == null || !_renderInfo.IsValid()
+        if (_prevLayerMask == layerMask)
         {
             return;
         }
+        _prevLayerMask = layerMask;
 
-        gameObject.layer = _layerMask;
+        gameObject.layer = layerMask;
         var allChildrenGO = gameObject.GetComponentsInChildren<Transform>();
         foreach (var child in allChildrenGO)
         {
-            child.gameObject.layer = _layerMask;
+            child.gameObject.layer = layerMask;
         }
 
-        //_camera.targetTexture = _renderInfo._texture;
-        _camera.cullingMask = 1 << _layerMask;
+        _camera.cullingMask = 1 << layerMask;
 
-        _layerMask++;
-        if (_layerMask >= 32)
+        if (_light)
         {
-            _layerMask = 8;
+            _light.cullingMask = 1 << layerMask;
         }
-      // var oneOverCount = new Vector2(1.0f, 1.0f) / _renderInfo._count;
-      //_camera.rect = _renderInfo._uvRect;
-      //new Rect(oneOverCount.x * _renderInfo._offset.x, oneOverCount.x * _renderInfo._offset.y, oneOverCount.x, oneOverCount.x);
     }
 
     public void Set(RenderInfo renderInfo)
     {
         if (!renderInfo.IsValid())
         {
+            gameObject.SetActive(false);
             return;
         }
-        StartInt();
+        if (!_camera)
+        {
+            _camera = gameObject.GetComponentInChildren<Camera>();
+        }
+        gameObject.SetActive(true);
+
+        SetLayerMask(Mathf.Clamp(_layerMaskRange.x + renderInfo._renderIndex, _layerMaskRange.x, _layerMaskRange.y));
+
         _camera.rect = renderInfo._uvRect;
         _camera.targetTexture = renderInfo._texture;
     }

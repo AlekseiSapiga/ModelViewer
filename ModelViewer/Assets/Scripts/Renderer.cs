@@ -13,7 +13,7 @@ public sealed class Renderer
 {
     class RenderInfoInt
     {
-        public RenderInfo _info { get; private set; }
+        public RenderInfo _info { get; set; }
         public ViewPortSetter _obj { get; private set; }
         public IUpdateImageListener _listener { get; private set; }
         public bool _isActive { get; set; }
@@ -29,6 +29,7 @@ public sealed class Renderer
 
     private static Renderer instance = null;
     private Dictionary<string, RenderInfoInt> _goToRender;
+    private Dictionary<string, RenderInfoInt> _goExcluded = new Dictionary<string, RenderInfoInt>();
     private RenderTexture _texture = null;
     private int _minSize = 256;
     private bool _inited = false;
@@ -78,7 +79,34 @@ public sealed class Renderer
 
     public void SetVisible(string id, bool value)
     {
+        if (!_inited)
+        {
+            Debug.Log("SetVisible return " + id);
+            return;
+        }
+        if (value)
+        {
+            if (_goToRender.ContainsKey(id) || !_goExcluded.ContainsKey(id))
+            {
+                UpdateInfos();
+                return;
+            }
+            _goToRender.Add(id, _goExcluded[id]);
+            _goExcluded.Remove(id);
+        }
+        else
+        {
+            if (_goExcluded.ContainsKey(id) || !_goToRender.ContainsKey(id))
+            {
+                UpdateInfos();
+                return;
+            }
+            _goExcluded.Add(id, _goToRender[id]);
+            _goToRender.Remove(id);
+        }
 
+        
+        UpdateInfos();
     }
 
     public void Clear()
@@ -95,15 +123,6 @@ public sealed class Renderer
         return _goToRender[id]._info;
     }
 
-    private int CeilPower2(int x)
-    {
-        if (x < 2)
-        {
-            return 1;
-        }
-        return (int)Math.Pow(2, (int)Math.Log(x - 1, 2) + 1);
-    }
-
     private void UpdateInfos()
     {
         var cnt = _goToRender.Count;
@@ -112,8 +131,8 @@ public sealed class Renderer
             return;
         }        
 
-        var cntImagesPerCol = (int)Math.Sqrt(CeilPower2(cnt));
-        Debug.Log("cntImagesPerCol " + cntImagesPerCol);
+        int cntImagesPerCol = (int)Math.Ceiling(Math.Sqrt(cnt));
+        Debug.Log("cntImagesPerCol " + cntImagesPerCol + " cnt = " + cnt);
         var calculatedSize = _texture.width / cntImagesPerCol;
         if (calculatedSize < _minSize)
         {
@@ -125,24 +144,31 @@ public sealed class Renderer
 
         int i = 0;
         int j = 0;
+        int renderIndex = 0;
         while (infoEnumerator.MoveNext())
         {
-            
-            Debug.Log(i + " | " + j);
-            
+            var curValue = infoEnumerator.Current.Value;
+            Debug.Log(i + " | " + j + " active "+ curValue._isActive);
+           
             var rect = new Rect(shift * j, shift * i, shift, shift);
 
-            var renderInfo = new RenderInfo(rect, _texture);
-            var curValue = infoEnumerator.Current.Value;
-            curValue._obj.Set(renderInfo);                
-            newDict.Add(infoEnumerator.Current.Key, new RenderInfoInt(renderInfo, curValue._obj, curValue._listener));
+            var renderInfo = new RenderInfo(rect, _texture, renderIndex++);
+            
+            curValue._obj.Set(renderInfo);
+            curValue._info = renderInfo;
+            newDict.Add(infoEnumerator.Current.Key, curValue);// new RenderInfoInt(renderInfo, curValue._obj, curValue._listener));
             j++;
             if (j >= cntImagesPerCol)
             {
                 j = 0;
                 i++;
             }
-        }        
+        }
+
+        foreach(var ex in _goExcluded)
+        {
+            ex.Value._obj.Set(new RenderInfo());
+        }
 
         _goToRender = new Dictionary<string, RenderInfoInt>(newDict);
         foreach (var listener in _goToRender)

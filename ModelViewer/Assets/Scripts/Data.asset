@@ -19,3 +19,15 @@ MonoBehaviour:
     _title: Character 2
   - _prefab: {fileID: 7718126914273169126, guid: 94f4686a78011c446a118437a50b7eb5, type: 3}
     _title: Character 3
+  - _prefab: {fileID: 2519816588131429194, guid: 95ba6cfb0ae88d94b9d11c303d13129e, type: 3}
+    _title: Barbarian
+  - _prefab: {fileID: 2519816588131429194, guid: 95ba6cfb0ae88d94b9d11c303d13129e, type: 3}
+    _title: Barbarian
+  - _prefab: {fileID: 2519816588131429194, guid: 95ba6cfb0ae88d94b9d11c303d13129e, type: 3}
+    _title: Barbarian
+  - _prefab: {fileID: 2519816588131429194, guid: 95ba6cfb0ae88d94b9d11c303d13129e, type: 3}
+    _title: Barbarian
+  - _prefab: {fileID: 2519816588131429194, guid: 95ba6cfb0ae88d94b9d11c303d13129e, type: 3}
+    _title: Barbarian
+  - _prefab: {fileID: 2519816588131429194, guid: 95ba6cfb0ae88d94b9d11c303d13129e, type: 3}
+    _title: Barbarian
