@@ -15,19 +15,28 @@ MonoBehaviour:
   _characters:
   - _prefab: {fileID: 2519816588131429194, guid: 676fd55d667e10644958490357a8f945, type: 3}
     _title: Character 1
-  - _prefab: {fileID: 7190802182291012492, guid: c281238319623f848a32e19f76245c01, type: 3}
-    _title: Character 2
-  - _prefab: {fileID: 7718126914273169126, guid: 94f4686a78011c446a118437a50b7eb5, type: 3}
-    _title: Character 3
-  - _prefab: {fileID: 2519816588131429194, guid: 95ba6cfb0ae88d94b9d11c303d13129e, type: 3}
-    _title: Barbarian
-  - _prefab: {fileID: 2519816588131429194, guid: 95ba6cfb0ae88d94b9d11c303d13129e, type: 3}
-    _title: Barbarian
-  - _prefab: {fileID: 2519816588131429194, guid: 95ba6cfb0ae88d94b9d11c303d13129e, type: 3}
-    _title: Barbarian
-  - _prefab: {fileID: 2519816588131429194, guid: 95ba6cfb0ae88d94b9d11c303d13129e, type: 3}
-    _title: Barbarian
-  - _prefab: {fileID: 2519816588131429194, guid: 95ba6cfb0ae88d94b9d11c303d13129e, type: 3}
-    _title: Barbarian
-  - _prefab: {fileID: 2519816588131429194, guid: 95ba6cfb0ae88d94b9d11c303d13129e, type: 3}
-    _title: Barbarian
+    _id: 72c050e2-054a-41a9-817f-ba53b9335589
+  - _prefab: {fileID: 2519816588131429194, guid: 676fd55d667e10644958490357a8f945, type: 3}
+    _title: Character 1
+    _id: 0dd5980f-a97f-4797-ad72-760183a7de7b
+  - _prefab: {fileID: 2519816588131429194, guid: 676fd55d667e10644958490357a8f945, type: 3}
+    _title: Character 1
+    _id: aa916f77-73cc-43e9-a3f7-a95a8de877d7
+  - _prefab: {fileID: 2519816588131429194, guid: 676fd55d667e10644958490357a8f945, type: 3}
+    _title: Character 1
+    _id: 592fcd24-bd8f-4db8-8ef6-01138c7bff2a
+  - _prefab: {fileID: 2519816588131429194, guid: 676fd55d667e10644958490357a8f945, type: 3}
+    _title: Character 1
+    _id: fc94446d-6db7-4ebb-a1e4-a6d04c3a903c
+  - _prefab: {fileID: 2519816588131429194, guid: 676fd55d667e10644958490357a8f945, type: 3}
+    _title: Character 1
+    _id: 182c0e99-ff0c-4a7e-8287-a3a441c35d85
+  - _prefab: {fileID: 2519816588131429194, guid: 676fd55d667e10644958490357a8f945, type: 3}
+    _title: Character 1
+    _id: 5ed0d6e2-dd40-43d6-924e-179f7b9700d9
+  - _prefab: {fileID: 2519816588131429194, guid: 676fd55d667e10644958490357a8f945, type: 3}
+    _title: Character 1
+    _id: 50a82bee-603b-4a68-b855-e15b432c84d0
+  - _prefab: {fileID: 2519816588131429194, guid: 676fd55d667e10644958490357a8f945, type: 3}
+    _title: Character 1
+    _id: 49b61c34-6a42-45cb-9f84-c6a8925e57e5

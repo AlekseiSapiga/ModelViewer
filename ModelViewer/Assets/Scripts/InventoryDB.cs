@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Reflection;
+
+public class ReadOnlyAttribute : PropertyAttribute { }
 
 [System.Serializable]
 public class InventoryCategoryId
@@ -44,8 +47,14 @@ public class CharacterInventoryItem
 [System.Serializable]
 public class InventoryItem
 {
-    public GameObject _prefab;    
+    public GameObject _prefab;
     public Sprite _icon;
+
+    [SerializeField]
+    [ReadOnly]
+    private string _id;
+
+    public string GetId() { return _id; }
 }
 
 [System.Serializable]
@@ -64,5 +73,36 @@ public class InventoryDB : ScriptableObject
     public InventoryCategory GetCategory(InventoryCategoryId id)
     {
         return Array.Find(_categories, cat=> cat._id == id);
+    }
+
+    public InventoryItem GetItem(InventoryCategoryId categoryId, string itemId)
+    {
+        var category = GetCategory(categoryId);
+        if (category != null)
+        {
+            return Array.Find(category._items, itm => itm.GetId() == itemId);
+        }
+        return null;
+    }
+
+    private void OnValidate()
+    {
+        #if UNITY_EDITOR
+        HashSet<string> _idsNew = new HashSet<string>();
+
+        foreach (var cat in _categories)
+        {
+            foreach (var item in cat._items)
+            {
+                if (item.GetId() == "" || _idsNew.Contains(item.GetId()))
+                {
+                    typeof(InventoryItem).GetField("_id", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(item, Guid.NewGuid().ToString());
+                    UnityEditor.EditorUtility.SetDirty(this);
+                }
+                _idsNew.Add(item.GetId());
+            }
+        }
+
+        #endif
     }
 }

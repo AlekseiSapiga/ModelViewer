@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class CharacterChoise
 {
-    public static int _characterId = 0; //{ get; set; }
+    public static string _characterId = "72c050e2-054a-41a9-817f-ba53b9335589"; //{ get; set; }
 }

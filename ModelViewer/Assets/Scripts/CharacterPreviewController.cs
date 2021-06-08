@@ -24,43 +24,50 @@ public class CharacterPreviewController : MonoBehaviour, IInventoryItemSelect
     public Transform _characterInstanceContainer;
     public ThubnailWidget _previewWidget;
     public InventoryDB _inventorySO;
-    public InventoryCategoriesBinder[] _inventoryCategories;
+    public InventoryCategoriesBinder[] _inventoryCategories;    
 
     private string _imageId;
     private CharacterInvetory _characterInventory = null;
+    private InventoryDataStore _dataStore = null;
+    private InventoryCurrentChoiseHolder _currentChoise = null;
+
     void Start()
     {
+        _dataStore = new InventoryDataStore();
+        _dataStore.Load();
+        _currentChoise = new InventoryCurrentChoiseHolder(CharacterChoise._characterId, _dataStore, _inventorySO);
+
         Renderer.Instance.Init(_texture, 256);
-        var character = _charactersCollection._characters[CharacterChoise._characterId];
+        var character = Array.Find(_charactersCollection._characters, ch => ch.GetId() == CharacterChoise._characterId);
         var newCharacter = Instantiate(character._prefab, new Vector3(0, 0, 0), Quaternion.identity);
         newCharacter.transform.parent = _characterInstanceContainer;
 
-        InitCharacterRender(newCharacter);
+        InitCharacterRender(newCharacter, character);
 
         InitInventory(newCharacter);
     }
 
 
-    private void InitCharacterRender(GameObject newCharacter)
+    private void InitCharacterRender(GameObject newCharacter, CharacterData characterDb)
     {
         var renderHelper = newCharacter.GetComponent<ViewPortSetter>();
         _imageId = newCharacter.GetInstanceID().ToString();
         Debug.Log("Create " + newCharacter.name + " id " + _imageId);
-        InitImageWidget();
+        InitImageWidget(characterDb);
         if (renderHelper)
         {
             Renderer.Instance.Register(_imageId, renderHelper, _previewWidget);
         }        
     }
 
-    private void InitImageWidget()
+    private void InitImageWidget(CharacterData characterDb)
     {
         if (!_previewWidget)
         {
             return;
         }
-        var character = _charactersCollection._characters[CharacterChoise._characterId];
-        _previewWidget.SetTitle(character._title);
+        
+        _previewWidget.SetTitle(characterDb._title);
         _previewWidget.SetImageId(_imageId);  
     }
 
@@ -81,6 +88,23 @@ public class CharacterPreviewController : MonoBehaviour, IInventoryItemSelect
         }
 
         _characterInventory = newCharacter.GetComponent<CharacterInvetory>();
+
+        if (_characterInventory != null)
+        {
+            var saved = _dataStore.Get(CharacterChoise._characterId);
+            if (saved != null)
+            {
+                foreach (var itm in saved)
+                {
+                    var itmFomDb = _inventorySO.GetItem(itm._category, itm._item);
+                    if (itmFomDb != null)
+                    {
+                        _characterInventory.Wear(new CharacterInventoryItem(itmFomDb._prefab, itm._category));// itm._category, itmFomDb);
+                    }
+                }
+            }
+            
+        }
     }
 
     public void OnSelectItem(InventoryItem item, InventoryCategoryId categoryId)
@@ -90,6 +114,22 @@ public class CharacterPreviewController : MonoBehaviour, IInventoryItemSelect
         {
             _characterInventory.Wear(new CharacterInventoryItem(item._prefab, categoryId));
         }
+        if (_currentChoise != null)
+        {
+            _currentChoise.OnSelectItem(item, categoryId);
+        }
     }
 
+    public void OnApplyClick()
+    {
+        if (_currentChoise != null)
+        {
+            _currentChoise.Apply();
+        }
+    }
+
+    public void OnBackClick()
+    {
+
+    }
 }
