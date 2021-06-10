@@ -1,8 +1,8 @@
 ﻿
-public enum AnimationTypes 
+public enum AnimationTypes : int
 {
-    Loop,
-    Idle,
-    Walk,
-    Attack
+    Loop = 0,
+    Idle = 1,
+    Walk = 2,
+    Attack = 3
 }

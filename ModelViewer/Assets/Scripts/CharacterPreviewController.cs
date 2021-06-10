@@ -17,7 +17,7 @@ public class InventoryCategoriesBinder
 }
 
 
-public class CharacterPreviewController : MonoBehaviour, IInventoryItemSelect
+public class CharacterPreviewController : MonoBehaviour, IInventoryItemSelect, IUIAnimationSwitch
 {
     public CharactersCollection _charactersCollection;
     public RenderTexture _texture;
@@ -27,13 +27,15 @@ public class CharacterPreviewController : MonoBehaviour, IInventoryItemSelect
     public InventoryCategoriesBinder[] _inventoryCategories;
     public KineticRotationDB _kineticRotationSO;
     public RectTransform _rectToHandleRotationTouch;
+    public UIAnimationSwitcher _animationSwitcherUI;
 
     private string _imageId;
     private CharacterInvetory _characterInventory = null;
     private InventoryDataStore _dataStore = null;
     private InventoryCurrentChoiseHolder _currentChoise = null;
+    private AnimationSwitcher _characterAnimationSwitcher = null;
 
-    void Start()
+    void OnEnable()
     {
         _dataStore = new InventoryDataStore();
         _dataStore.Load();
@@ -49,6 +51,8 @@ public class CharacterPreviewController : MonoBehaviour, IInventoryItemSelect
         InitCharacterRender(newCharacter, character);
 
         InitInventory(newCharacter);
+
+        InitAnimationSwitcher(newCharacter);
     }
 
 
@@ -121,6 +125,23 @@ public class CharacterPreviewController : MonoBehaviour, IInventoryItemSelect
             {
                 kineticRot.Init(_kineticRotationSO, _rectToHandleRotationTouch);
             }
+        }
+    }
+
+    private void InitAnimationSwitcher(GameObject newCharacter)
+    {
+        if (_animationSwitcherUI != null)
+        {
+            _animationSwitcherUI.Init(this);
+        }
+        _characterAnimationSwitcher = newCharacter.GetComponent<AnimationSwitcher>();        
+    }
+
+    public void OnAnimationSelected(AnimationTypes type)
+    {
+        if (_characterAnimationSwitcher != null)
+        {
+            _characterAnimationSwitcher.StartAnimation(type);
         }
     }
 
