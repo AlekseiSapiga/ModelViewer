@@ -3418,6 +3418,8 @@ MonoBehaviour:
   - _id:
       _id: Weapons
     _fill: {fileID: 1393053584}
+  _kineticRotationSO: {fileID: 11400000, guid: c1d7b95bfd87e054b905684951a7e096, type: 2}
+  _rectToHandleRotationTouch: {fileID: 804477669}
 --- !u!4 &2089001339
 Transform:
   m_ObjectHideFlags: 0

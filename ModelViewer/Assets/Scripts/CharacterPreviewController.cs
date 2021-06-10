@@ -24,7 +24,9 @@ public class CharacterPreviewController : MonoBehaviour, IInventoryItemSelect
     public Transform _characterInstanceContainer;
     public ThubnailWidget _previewWidget;
     public InventoryDB _inventorySO;
-    public InventoryCategoriesBinder[] _inventoryCategories;    
+    public InventoryCategoriesBinder[] _inventoryCategories;
+    public KineticRotationDB _kineticRotationSO;
+    public RectTransform _rectToHandleRotationTouch;
 
     private string _imageId;
     private CharacterInvetory _characterInventory = null;
@@ -41,6 +43,8 @@ public class CharacterPreviewController : MonoBehaviour, IInventoryItemSelect
         var character = Array.Find(_charactersCollection._characters, ch => ch.GetId() == CharacterChoise._characterId);
         var newCharacter = Instantiate(character._prefab, new Vector3(0, 0, 0), Quaternion.identity);
         newCharacter.transform.parent = _characterInstanceContainer;
+
+        InitKineticRotation(newCharacter);
 
         InitCharacterRender(newCharacter, character);
 
@@ -104,6 +108,19 @@ public class CharacterPreviewController : MonoBehaviour, IInventoryItemSelect
                 }
             }
             
+        }
+    }
+
+    private void InitKineticRotation(GameObject newCharacter)
+    {
+        var modelHolder = newCharacter.GetComponent<CharacterModelHolder>();
+        if (modelHolder)
+        {
+            var kineticRot = modelHolder._characterModel.gameObject.AddComponent<KineticRotation>();
+            if (_kineticRotationSO != null)
+            {
+                kineticRot.Init(_kineticRotationSO, _rectToHandleRotationTouch);
+            }
         }
     }
 
