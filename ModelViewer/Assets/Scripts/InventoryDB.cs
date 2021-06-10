@@ -36,11 +36,14 @@ public class CharacterInventoryItem
 {
     public GameObject _prefab { get; private set; }
     public InventoryCategoryId _id { get; private set; }
+    public string _itemId { get; private set; }
+
     public CharacterInventoryItem() { }
-    public CharacterInventoryItem(GameObject prefab, InventoryCategoryId id)
+    public CharacterInventoryItem(GameObject prefab, InventoryCategoryId id, string itemId)
     {
         _prefab = prefab;
         _id = id;
+        _itemId = itemId;
     }
 }
 

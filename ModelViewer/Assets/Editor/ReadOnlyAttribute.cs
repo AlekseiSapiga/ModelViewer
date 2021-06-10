@@ -13,6 +13,6 @@ public class ReadOnlyAttributeDrawer : PropertyDrawer
     {
         Rect textFieldPosition = position;
         textFieldPosition.height = 16;
-        EditorGUI.LabelField(position, label, new GUIContent(prop.stringValue));
+        EditorGUI.TextField(position, label.text, prop.stringValue);
     }
 }

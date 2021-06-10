@@ -20,7 +20,7 @@ MonoBehaviour:
     - _prefab: {fileID: 6455511586736767196, guid: a985ba845dc643d4aa954b5b2ed3c02b, type: 3}
       _icon: {fileID: 21300000, guid: b1706ddc0f3b13a46abfec9486014c5d, type: 3}
       _id: 36df1fe3-2bdf-43a6-b79f-35e3333b36f0
-    - _prefab: {fileID: 6455511586736767196, guid: a985ba845dc643d4aa954b5b2ed3c02b, type: 3}
+    - _prefab: {fileID: 1085667812911432676, guid: 7d9c2f27646b3b94ca5a172e7163bc51, type: 3}
       _icon: {fileID: 21300000, guid: 00e642da77360184290b0ac95efa67a2, type: 3}
       _id: ff4f3a7a-6632-4c69-840c-099eb9269ffc
   - _id:
@@ -30,6 +30,6 @@ MonoBehaviour:
     - _prefab: {fileID: 1844863663501359419, guid: f5669214654a8bd49937b985a6681584, type: 3}
       _icon: {fileID: 21300000, guid: fb10567939f10fb458f5d3528def090f, type: 3}
       _id: 0d0bb739-278e-4607-ae6e-188cac2eb18e
-    - _prefab: {fileID: 1844863663501359419, guid: f5669214654a8bd49937b985a6681584, type: 3}
+    - _prefab: {fileID: 135064, guid: 78b9a368db2694517963203a1c6a67c4, type: 3}
       _icon: {fileID: 21300000, guid: 47ebf52e4f6e11e4c99a9078b5a8884e, type: 3}
       _id: aa6e5ba7-4de1-4685-85ee-63f119093f25

@@ -4,10 +4,18 @@ using UnityEngine;
 using System;
 
 [System.Serializable]
+public class ItemIdLocator
+{
+    public string _id;
+    public GameObject _locator;
+}
+
+
+[System.Serializable]
 public class Wearing
 {
     public InventoryCategoryId _category;
-    public GameObject _locator;
+    public List<ItemIdLocator> _suitableItems;
 }
 
 public interface ICharacterCanWear
@@ -28,14 +36,27 @@ public class CharacterInvetory : MonoBehaviour, ICharacterCanWear
         {
             return;
         }
+        var itemLocator = wearingsSettings._suitableItems.Find(itm => itm._id == item._itemId);
+        if (itemLocator == null || itemLocator._locator == null)
+        {
+            return;
+        }
+        var locator = itemLocator._locator;
+
         RemoveInt(item._id, wearingsSettings);
 
         var newItem = Instantiate(item._prefab, new Vector3(0, 0, 0), Quaternion.identity);
-        newItem.transform.SetParent(wearingsSettings._locator.transform);
-        newItem.layer = wearingsSettings._locator.layer;
+        newItem.transform.parent = locator.transform;
+        newItem.transform.localPosition = Vector3.zero;
+        newItem.transform.localRotation = Quaternion.identity;
+        newItem.layer = locator.layer;
+        foreach (Transform child in newItem.transform)
+        {
+            child.gameObject.layer = locator.layer;
+        }
+
         _currentWears.Add(item._id);
     }
-
 
     public void Remove(InventoryCategoryId id)
     {
@@ -52,10 +73,13 @@ public class CharacterInvetory : MonoBehaviour, ICharacterCanWear
         if (_currentWears.Contains(id))
         {
             Transform transform;
-            for (int i = 0; i < wearingsSettings._locator.transform.childCount; i++)
+            foreach (var itemLocator in wearingsSettings._suitableItems)
             {
-                transform = wearingsSettings._locator.transform.GetChild(i);
-                GameObject.Destroy(transform.gameObject);
+                for (int i = 0; i < itemLocator._locator.transform.childCount; i++)
+                {
+                    transform = itemLocator._locator.transform.GetChild(i);
+                    GameObject.Destroy(transform.gameObject);
+                }
             }
             _currentWears.Remove(id);
         }
@@ -63,6 +87,15 @@ public class CharacterInvetory : MonoBehaviour, ICharacterCanWear
 
     public bool CanWear(InventoryItem item, InventoryCategoryId categoryId)
     {
-        return true;
+        if (_wearings == null)
+        {
+            return false;
+        }
+        var wearingsSettings = Array.Find(_wearings, wr => wr._category == categoryId);
+        if (wearingsSettings == null)
+        {
+            return false;
+        }
+        return wearingsSettings._suitableItems.Find(itm => itm._id == item.GetId()) != null;
     }
 }

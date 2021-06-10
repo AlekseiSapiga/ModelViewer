@@ -107,7 +107,7 @@ public class CharacterPreviewController : MonoBehaviour, IInventoryItemSelect, I
                     var itmFomDb = _inventorySO.GetItem(itm._category, itm._item);
                     if (itmFomDb != null)
                     {
-                        _characterInventory.Wear(new CharacterInventoryItem(itmFomDb._prefab, itm._category));// itm._category, itmFomDb);
+                        _characterInventory.Wear(new CharacterInventoryItem(itmFomDb._prefab, itm._category, itmFomDb.GetId()));// itm._category, itmFomDb);
                     }
                 }
             }
@@ -150,7 +150,7 @@ public class CharacterPreviewController : MonoBehaviour, IInventoryItemSelect, I
         Debug.Log("ON OnSelectItem " + categoryId._id + " | " + item._icon.name);
         if (_characterInventory != null)
         {
-            _characterInventory.Wear(new CharacterInventoryItem(item._prefab, categoryId));
+            _characterInventory.Wear(new CharacterInventoryItem(item._prefab, categoryId, item.GetId()));
         }
         if (_currentChoise != null)
         {
