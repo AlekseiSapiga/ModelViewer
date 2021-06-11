@@ -30,6 +30,7 @@ public class CharacterPreviewController : MonoBehaviour, IInventoryItemSelect, I
     public RectTransform _rectToHandleRotationTouch;
     public UIAnimationSwitcher _animationSwitcherUI;
     public Toggle _characterLookAtCamera;
+    public BlickAnimation _applyButtonBlick;
 
     private string _imageId;
     private CharacterInvetory _characterInventory = null;
@@ -171,6 +172,10 @@ public class CharacterPreviewController : MonoBehaviour, IInventoryItemSelect, I
         if (_currentChoise != null)
         {
             _currentChoise.OnSelectItem(item, categoryId);
+            if (_applyButtonBlick != null)
+            {
+                _applyButtonBlick.AnimateBlick(_currentChoise.HasChanges());
+            }
         }
     }
 
@@ -179,6 +184,10 @@ public class CharacterPreviewController : MonoBehaviour, IInventoryItemSelect, I
         if (_currentChoise != null)
         {
             _currentChoise.Apply();
+        }
+        if (_applyButtonBlick != null)
+        {
+            _applyButtonBlick.AnimateBlick(false);
         }
     }
 
