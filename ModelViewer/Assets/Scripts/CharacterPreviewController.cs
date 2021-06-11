@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
 
 public interface IInventoryItemSelect
 {
@@ -28,6 +29,7 @@ public class CharacterPreviewController : MonoBehaviour, IInventoryItemSelect, I
     public KineticRotationDB _kineticRotationSO;
     public RectTransform _rectToHandleRotationTouch;
     public UIAnimationSwitcher _animationSwitcherUI;
+    public Toggle _characterLookAtCamera;
 
     private string _imageId;
     private CharacterInvetory _characterInventory = null;
@@ -53,6 +55,8 @@ public class CharacterPreviewController : MonoBehaviour, IInventoryItemSelect, I
         InitInventory(newCharacter);
 
         InitAnimationSwitcher(newCharacter);
+
+        InitLookAtCameraSwitch(newCharacter);
     }
 
 
@@ -143,6 +147,18 @@ public class CharacterPreviewController : MonoBehaviour, IInventoryItemSelect, I
         {
             _characterAnimationSwitcher.StartAnimation(type);
         }
+    }
+
+    private void InitLookAtCameraSwitch(GameObject newCharacter)
+    {
+        var lookAtComp = newCharacter.GetComponentInChildren<CharacterLookAt>();
+        if (lookAtComp == null || _characterLookAtCamera == null)
+        {
+            return;
+        }
+        _characterLookAtCamera.onValueChanged.AddListener(delegate {
+            lookAtComp.ikActive = _characterLookAtCamera.isOn;
+        });
     }
 
     public void OnSelectItem(InventoryItem item, InventoryCategoryId categoryId)
