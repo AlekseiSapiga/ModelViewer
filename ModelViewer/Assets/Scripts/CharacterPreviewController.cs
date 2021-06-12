@@ -31,12 +31,14 @@ public class CharacterPreviewController : MonoBehaviour, IInventoryItemSelect, I
     public UIAnimationSwitcher _animationSwitcherUI;
     public Toggle _characterLookAtCamera;
     public BlickAnimation _applyButtonBlick;
-
+    public Material[] _newMaterials;
+    
     private string _imageId;
     private CharacterInvetory _characterInventory = null;
     private InventoryDataStore _dataStore = null;
     private InventoryCurrentChoiseHolder _currentChoise = null;
     private AnimationSwitcher _characterAnimationSwitcher = null;
+    private CharacterMaterialSetter _characterMaterialSetter = null;
 
     void OnEnable()
     {
@@ -48,6 +50,7 @@ public class CharacterPreviewController : MonoBehaviour, IInventoryItemSelect, I
         var character = Array.Find(_charactersCollection._characters, ch => ch.GetId() == CharacterChoise._characterId);
         var newCharacter = Instantiate(character._prefab, new Vector3(0, 0, 0), Quaternion.identity);
         newCharacter.transform.parent = _characterInstanceContainer;
+        _characterMaterialSetter = newCharacter.GetComponentInChildren<CharacterMaterialSetter>();
 
         InitKineticRotation(newCharacter);
 
@@ -177,6 +180,10 @@ public class CharacterPreviewController : MonoBehaviour, IInventoryItemSelect, I
                 _applyButtonBlick.AnimateBlick(_currentChoise.HasChanges());
             }
         }
+        if (_characterMaterialSetter != null)
+        {
+            _characterMaterialSetter.UpdateMaterial();
+        }
     }
 
     public void OnApplyClick()
@@ -194,5 +201,32 @@ public class CharacterPreviewController : MonoBehaviour, IInventoryItemSelect, I
     public void OnBackClick()
     {
 
+    }
+
+    public void OnThermalViewClick()
+    {
+        if (_characterMaterialSetter == null || _newMaterials.Length < 1)
+        {
+            return;
+        }
+        _characterMaterialSetter.SetMaterial(_newMaterials[0]);
+    }
+
+    public void OnPhantomViewClick()
+    {
+        if (_characterMaterialSetter == null || _newMaterials.Length < 2)
+        {
+            return;
+        }
+        _characterMaterialSetter.SetMaterial(_newMaterials[1]);
+    }
+
+    public void OnOriginViewClick()
+    {
+        if (_characterMaterialSetter == null)
+        {
+            return;
+        }
+        _characterMaterialSetter.RestoreOriginal();
     }
 }
