@@ -10,6 +10,15 @@ public class ThubnailWidget : MonoBehaviour, IUpdateImageListener
     public RawImage _image;
     private string _imageId;
     
+    public void Init(string title, string imageid, string characterId)
+    {
+        SetTitle(title);
+        SetImageId(imageid);
+
+        GetComponent<Button>().onClick.AddListener(delegate {
+            CharacterChoise.LoadCharacterPreviewScene(characterId);
+        });
+    }
 
     public void SetTitle(string title)
     {

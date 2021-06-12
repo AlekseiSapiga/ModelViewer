@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public interface IInventoryItemSelect
 {
@@ -46,7 +47,7 @@ public class CharacterPreviewController : MonoBehaviour, IInventoryItemSelect, I
         _dataStore.Load();
         _currentChoise = new InventoryCurrentChoiseHolder(CharacterChoise._characterId, _dataStore, _inventorySO);
 
-        Renderer.Instance.Init(_texture, 256);
+        //Renderer.Instance.Init(_texture, 256);
         var character = Array.Find(_charactersCollection._characters, ch => ch.GetId() == CharacterChoise._characterId);
         var newCharacter = Instantiate(character._prefab, new Vector3(0, 0, 0), Quaternion.identity);
         newCharacter.transform.parent = _characterInstanceContainer;
@@ -115,7 +116,7 @@ public class CharacterPreviewController : MonoBehaviour, IInventoryItemSelect, I
                     var itmFomDb = _inventorySO.GetItem(itm._category, itm._item);
                     if (itmFomDb != null)
                     {
-                        _characterInventory.Wear(new CharacterInventoryItem(itmFomDb._prefab, itm._category, itmFomDb.GetId()));// itm._category, itmFomDb);
+                        _characterInventory.Wear(new CharacterInventoryItem(itmFomDb._prefab, itm._category, itmFomDb.GetId()));
                     }
                 }
             }
@@ -200,7 +201,8 @@ public class CharacterPreviewController : MonoBehaviour, IInventoryItemSelect, I
 
     public void OnBackClick()
     {
-
+        Renderer.Instance.Clear();
+        SceneManager.LoadScene(0);
     }
 
     public void OnThermalViewClick()
