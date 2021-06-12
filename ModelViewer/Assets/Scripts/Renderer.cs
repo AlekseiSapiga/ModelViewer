@@ -111,7 +111,8 @@ public sealed class Renderer
 
     public void Clear()
     {
-        _goToRender.Clear();        
+        _goToRender.Clear();
+        _goExcluded.Clear();
     }
 
     public RenderInfo GetRenderInfo(string id)
