@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class CharacterChoise
 {
-    public static string _characterId { get; private set; }// = "72c050e2-054a-41a9-817f-ba53b9335589"; //{ get; set; }
+    public static string _characterId  = "72c050e2-054a-41a9-817f-ba53b9335589"; //{ get; set; }
 
     public static void LoadCharacterPreviewScene(string characterId)
     {

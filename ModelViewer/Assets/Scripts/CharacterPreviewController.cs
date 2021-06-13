@@ -47,7 +47,7 @@ public class CharacterPreviewController : MonoBehaviour, IInventoryItemSelect, I
         _dataStore.Load();
         _currentChoise = new InventoryCurrentChoiseHolder(CharacterChoise._characterId, _dataStore, _inventorySO);
 
-        //Renderer.Instance.Init(_texture, 256);
+        Renderer.Instance.Init(_texture, 256);
         var character = Array.Find(_charactersCollection._characters, ch => ch.GetId() == CharacterChoise._characterId);
         var newCharacter = Instantiate(character._prefab, new Vector3(0, 0, 0), Quaternion.identity);
         newCharacter.transform.parent = _characterInstanceContainer;
@@ -94,17 +94,18 @@ public class CharacterPreviewController : MonoBehaviour, IInventoryItemSelect, I
         {
             return;
         }
-        
+        _characterInventory = newCharacter.GetComponent<CharacterInvetory>();
+
         foreach (var invCat in _inventoryCategories)
         {
             var categoryData = _inventorySO.GetCategory(invCat._id);
             if (categoryData != null)
             {                
-                invCat._fill.Fill(invCat._id, categoryData._items, this, null);
+                invCat._fill.Fill(invCat._id, categoryData._items, this, _characterInventory);
             }
         }
 
-        _characterInventory = newCharacter.GetComponent<CharacterInvetory>();
+        
 
         if (_characterInventory != null)
         {

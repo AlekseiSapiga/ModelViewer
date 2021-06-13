@@ -49,6 +49,11 @@ public class SceneThubnailsControll : MonoBehaviour
 
             InitCharacterInventory(newCharacter, character.GetId());
 
+            var animationSwitcher = newCharacter.GetComponent<AnimationSwitcher>();
+            if (animationSwitcher != null)
+            {
+                animationSwitcher.StartLoopMode();
+            }
         }
     }
 

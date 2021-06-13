@@ -27,9 +27,12 @@ MonoBehaviour:
       _id: Weapons
     _title: Weapons
     _items:
-    - _prefab: {fileID: 1844863663501359419, guid: f5669214654a8bd49937b985a6681584, type: 3}
-      _icon: {fileID: 21300000, guid: fb10567939f10fb458f5d3528def090f, type: 3}
-      _id: 0d0bb739-278e-4607-ae6e-188cac2eb18e
     - _prefab: {fileID: 135064, guid: 78b9a368db2694517963203a1c6a67c4, type: 3}
-      _icon: {fileID: 21300000, guid: 47ebf52e4f6e11e4c99a9078b5a8884e, type: 3}
+      _icon: {fileID: 21300000, guid: 6a73f2cbf6545ac49a48d43ad3199801, type: 3}
+      _id: 0d0bb739-278e-4607-ae6e-188cac2eb18e
+    - _prefab: {fileID: 6428637824009397631, guid: bba57d1e0de0aed48a439a09a336e49f, type: 3}
+      _icon: {fileID: 21300000, guid: 52869c3412b27b14cab436cf1ccb639d, type: 3}
       _id: aa6e5ba7-4de1-4685-85ee-63f119093f25
+    - _prefab: {fileID: 100000, guid: b92e432993e63b740a483cc7a150f000, type: 3}
+      _icon: {fileID: 21300000, guid: 5b0f321aa62b4ce4087a486e20ab99b0, type: 3}
+      _id: 14082563-5573-46dd-8042-2b6a92a21b00
