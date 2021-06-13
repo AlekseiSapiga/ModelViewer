@@ -50,6 +50,7 @@ public class CharacterInvetory : MonoBehaviour, ICharacterCanWear
         newItem.transform.parent = locator.transform;
         newItem.transform.localPosition = Vector3.zero;
         newItem.transform.localRotation = Quaternion.identity;
+        newItem.transform.localScale = Vector3.one;
         newItem.layer = locator.layer;
         foreach (Transform child in newItem.transform)
         {
