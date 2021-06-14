@@ -31,8 +31,6 @@ public class CharacterLookAt : MonoBehaviour
             }
             else
             {
-                animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 0);
-                animator.SetIKRotationWeight(AvatarIKGoal.RightHand, 0);
                 animator.SetLookAtWeight(0);
             }
         }

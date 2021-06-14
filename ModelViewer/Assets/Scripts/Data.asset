@@ -19,8 +19,8 @@ MonoBehaviour:
   - _prefab: {fileID: 2519816588131429194, guid: e3e5c05049f75ba4783e9e12812333c4, type: 3}
     _title: Barbarian
     _id: 0dd5980f-a97f-4797-ad72-760183a7de7b
-  - _prefab: {fileID: 2519816588131429194, guid: 676fd55d667e10644958490357a8f945, type: 3}
-    _title: Character 1
+  - _prefab: {fileID: 2519816588131429194, guid: ae8ec13a3d7016b448854122316b9124, type: 3}
+    _title: Fantasy Monster
     _id: aa916f77-73cc-43e9-a3f7-a95a8de877d7
   - _prefab: {fileID: 2519816588131429194, guid: 676fd55d667e10644958490357a8f945, type: 3}
     _title: Character 1
