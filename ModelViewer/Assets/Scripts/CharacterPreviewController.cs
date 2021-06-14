@@ -46,8 +46,7 @@ public class CharacterPreviewController : MonoBehaviour, IInventoryItemSelect, I
         _dataStore = new InventoryDataStore();
         _dataStore.Load();
         _currentChoise = new InventoryCurrentChoiseHolder(CharacterChoise._characterId, _dataStore, _inventorySO);
-
-        Renderer.Instance.Init(_texture, 256);
+        
         var character = Array.Find(_charactersCollection._characters, ch => ch.GetId() == CharacterChoise._characterId);
         var newCharacter = Instantiate(character._prefab, new Vector3(0, 0, 0), Quaternion.identity);
         newCharacter.transform.parent = _characterInstanceContainer;
@@ -68,8 +67,7 @@ public class CharacterPreviewController : MonoBehaviour, IInventoryItemSelect, I
     private void InitCharacterRender(GameObject newCharacter, CharacterData characterDb)
     {
         var renderHelper = newCharacter.GetComponent<ViewPortSetter>();
-        _imageId = newCharacter.GetInstanceID().ToString();
-        Debug.Log("Create " + newCharacter.name + " id " + _imageId);
+        _imageId = newCharacter.GetInstanceID().ToString();        
         InitImageWidget(characterDb);
         if (renderHelper)
         {
@@ -168,8 +166,7 @@ public class CharacterPreviewController : MonoBehaviour, IInventoryItemSelect, I
     }
 
     public void OnSelectItem(InventoryItem item, InventoryCategoryId categoryId)
-    {
-        Debug.Log("ON OnSelectItem " + categoryId._id + " | " + item._icon.name);
+    {        
         if (_characterInventory != null)
         {
             _characterInventory.Wear(new CharacterInventoryItem(item._prefab, categoryId, item.GetId()));

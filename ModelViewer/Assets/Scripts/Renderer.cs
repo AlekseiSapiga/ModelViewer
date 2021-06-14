@@ -16,14 +16,13 @@ public sealed class Renderer
         public RenderInfo _info { get; set; }
         public ViewPortSetter _obj { get; private set; }
         public IUpdateImageListener _listener { get; private set; }
-        public bool _isActive { get; set; }
-        public RenderInfoInt() { _isActive = false; }
+        
+        public RenderInfoInt() { }
         public RenderInfoInt(RenderInfo info, ViewPortSetter obj, IUpdateImageListener listener)
         {
             _info = info;
             _obj = obj;
-            _listener = listener;
-            _isActive = false;
+            _listener = listener;            
         }
     }
 
@@ -133,7 +132,7 @@ public sealed class Renderer
         }        
 
         int cntImagesPerCol = (int)Math.Ceiling(Math.Sqrt(cnt));
-        Debug.Log("cntImagesPerCol " + cntImagesPerCol + " cnt = " + cnt);
+        //Debug.Log("cntImagesPerCol " + cntImagesPerCol + " cnt = " + cnt);
         var calculatedSize = _texture.width / cntImagesPerCol;
         if (calculatedSize < _minSize)
         {
@@ -148,9 +147,7 @@ public sealed class Renderer
         int renderIndex = 0;
         while (infoEnumerator.MoveNext())
         {
-            var curValue = infoEnumerator.Current.Value;
-            Debug.Log(i + " | " + j + " active "+ curValue._isActive);
-           
+            var curValue = infoEnumerator.Current.Value;           
             var rect = new Rect(shift * j, shift * i, shift, shift);
 
             var renderInfo = new RenderInfo(rect, _texture, renderIndex++);

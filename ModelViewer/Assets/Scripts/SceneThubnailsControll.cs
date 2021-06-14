@@ -7,10 +7,12 @@ public class SceneThubnailsControll : MonoBehaviour
 {
     public CharactersCollection _charactersCollection;
     public RenderTexture _texture;
+    public int _minSubTextureSize;
     public GameObject _widgetPrefab;
     public GameObject _scrollerContent;
     public ScrollRect _scrollerRect;
     public InventoryDB _inventorySO;
+    
 
     private InventoryDataStore _dataStore = null;
 
@@ -19,14 +21,13 @@ public class SceneThubnailsControll : MonoBehaviour
         _dataStore = new InventoryDataStore();
         _dataStore.Load();
 
-        Renderer.Instance.Init(_texture, 256);
+        Renderer.Instance.Init(_texture, _minSubTextureSize);
         foreach (var character in _charactersCollection._characters)
         {
             var newCharacter = Instantiate(character._prefab, new Vector3(0, 0, 0), Quaternion.identity);
             newCharacter.transform.parent = transform;
             var renderHelper = newCharacter.GetComponent<ViewPortSetter>();
-            var imageId = newCharacter.GetInstanceID().ToString();
-            Debug.Log("Create " + newCharacter.name + " id " + imageId);
+            var imageId = newCharacter.GetInstanceID().ToString();            
             ThubnailWidget newWidget = null;
             if (_scrollerContent)
             {

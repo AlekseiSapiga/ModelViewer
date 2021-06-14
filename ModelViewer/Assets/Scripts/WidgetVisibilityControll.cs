@@ -18,7 +18,11 @@ public class WidgetVisibilityControll : MonoBehaviour
             return;
         }
         _imageId = imageId;
-        _scrollRect = scrollRect;
+        _scrollRect = scrollRect;       
+    }
+
+    void Start()
+    {       
         _viewPortCorners = new Vector3[4];
         _scrollRect.gameObject.GetComponent<RectTransform>().GetWorldCorners(_viewPortCorners);
         _scrollRect.onValueChanged.AddListener(OnScrollerChanged);
@@ -35,7 +39,6 @@ public class WidgetVisibilityControll : MonoBehaviour
         if (newVisibleValue != _visible)
         {
             Renderer.Instance.SetVisible(_imageId, newVisibleValue);
-            Debug.Log(_imageId + " | " + IsVisible());
         }
         _visible = newVisibleValue;        
     }
@@ -45,11 +48,12 @@ public class WidgetVisibilityControll : MonoBehaviour
         var currentWidgetCorner = new Vector3[4];
         gameObject.GetComponent<RectTransform>().GetWorldCorners(currentWidgetCorner);
 
-        var viewPortTop = _viewPortCorners[0].y;
-        var viewPortBottom = _viewPortCorners[1].y;
+        var viewPortTop = _viewPortCorners[1].y;
+        var viewPortBottom = _viewPortCorners[0].y;
 
-        var widgetTop = currentWidgetCorner[0].y;
-        var widgetBottom = currentWidgetCorner[1].y;
+        var widgetTop = currentWidgetCorner[1].y;
+        var widgetBottom = currentWidgetCorner[0].y;
+        
         if (widgetBottom < viewPortTop || widgetTop > viewPortBottom)
         {
             return false;

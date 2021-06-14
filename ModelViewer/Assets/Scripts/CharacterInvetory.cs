@@ -43,10 +43,9 @@ public class CharacterInvetory : MonoBehaviour, ICharacterCanWear
         }
         var locator = itemLocator._locator;
 
-        RemoveInt(item._id, wearingsSettings);
-        Debug.Log("Before Instantiate");
+        RemoveInt(item._id, wearingsSettings);        
         var newItem = Instantiate(item._prefab, new Vector3(0, 0, 0), Quaternion.identity);
-        Debug.Log("After Instantiate");
+        
         newItem.transform.parent = locator.transform;
         newItem.transform.localPosition = Vector3.zero;
         newItem.transform.localRotation = Quaternion.identity;
