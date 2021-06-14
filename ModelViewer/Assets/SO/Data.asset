@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76d864caaf2cb794583ad57c9761b354, type: 3}
+  m_Name: Data
+  m_EditorClassIdentifier: 
+  _characters:
+  - _prefab: {fileID: 2519816588131429194, guid: 676fd55d667e10644958490357a8f945, type: 3}
+    _title: Zombie
+    _id: 72c050e2-054a-41a9-817f-ba53b9335589
+  - _prefab: {fileID: 2519816588131429194, guid: e3e5c05049f75ba4783e9e12812333c4, type: 3}
+    _title: Barbarian
+    _id: 0dd5980f-a97f-4797-ad72-760183a7de7b
+  - _prefab: {fileID: 2519816588131429194, guid: ae8ec13a3d7016b448854122316b9124, type: 3}
+    _title: Fantasy Monster
+    _id: aa916f77-73cc-43e9-a3f7-a95a8de877d7
+  - _prefab: {fileID: 2519816588131429194, guid: 4a481c3a14c8c924180c93f4dc24fb5f, type: 3}
+    _title: Berserker
+    _id: 592fcd24-bd8f-4db8-8ef6-01138c7bff2a
